@@ -1,2 +1,2 @@
 # mipt_inf
-It repository for my informatics labs
+It is repository for my informatics labs
