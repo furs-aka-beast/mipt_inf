@@ -1,3 +1,2 @@
 # mipt_inf
-it is test prolect
-aaaaaaaaaaaaaaaaaaa
+It repository for my informatics labs
