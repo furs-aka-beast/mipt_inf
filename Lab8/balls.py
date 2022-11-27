@@ -7,7 +7,7 @@ FPS = 60 #число новых кругов в секунду
 number_of_balls=4 #число обычных шаров
 points=0 #счетчик очков
 base_points_multiplier=100 #базовый множитель начисления очков
-x_res,y_res=1920/1.25, 1080/1.25
+x_res,y_res=1920/1.25, 1080/1.25 #разрешение
 res=[x_res,y_res]
 sp_mult=0.01 #множитель скорости
 screen = pygame.display.set_mode((x_res,y_res))
@@ -63,7 +63,7 @@ def gravitation(balls,a):
     '''меняет скорость шаров из переданного массива, а - ускорение'''
     for i in range(len(balls)):
         balls[i].spd[1]+=a
-
+'''создаем шары разных видов'''
 balls=create_balls(number_of_balls)
 gravity_balls=create_balls(int(number_of_balls/2))
 pygame.display.update()
@@ -76,11 +76,11 @@ while not finished:
         if event.type == pygame.QUIT:
             finished = True
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            click_check(event,balls,base_points_multiplier)
+            click_check(event,balls,base_points_multiplier) #проверяем попадание по шару
             click_check(event,gravity_balls,2*base_points_multiplier)
             print(points)
     draw_balls(balls) #рисуем шары
-    gravitation(gravity_balls,2)
+    gravitation(gravity_balls,2) #применяем гравитацию
     draw_balls(gravity_balls)
     pygame.display.update()
     screen.fill(BLACK)
