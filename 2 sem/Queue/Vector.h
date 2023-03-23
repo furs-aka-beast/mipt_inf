@@ -37,6 +37,22 @@ i64& operator[](i64 num)
 
 i64* begin(){return data_;}
 i64* end(){return data_+size_;}
+Vector (Vector& source){
+    size_=source.Size();
+    data_=nullptr;
+    ReAlloc_(size_*2);
+    for (i64 i=0;i<size_;i++ ){*(data_+i)=source[i];}
+}
+Vector& operator=(Vector& source){
+    Vector tmp=source;
+    std::swap(tmp.data_, data_); 
+    std::swap(tmp.size_, size_);   
+    std::swap(tmp.reserved_, reserved_); 
+    return *this;
+}
+~Vector(){
+    delete[] data_;
+}
 private:
 void ReAlloc_(i64 new_size){
     i64 * new_data = new i64[new_size];
