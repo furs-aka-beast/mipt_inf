@@ -1,4 +1,5 @@
 #include <cstddef>
+#include <iostream>
 template <class T>
 class UniquePtr{
     public:
@@ -47,6 +48,7 @@ class SharedPtr {
     friend class WeakPtr<T>;
 public:
     SharedPtr() {  
+        std::cout<<"created";
         ptr = nullptr;
         cnt = nullptr;
     }
@@ -54,7 +56,7 @@ public:
         Copy(o);
     }
     SharedPtr& operator=(const SharedPtr& o) {  
-        delete this;
+        Clear();
         Copy(o);
         return *this;
     }
@@ -64,7 +66,7 @@ public:
     }
     
     SharedPtr& operator=(SharedPtr&& o) { 
-        delete this;
+        Clear();
         Move(o);
         return *this;
     }
@@ -81,7 +83,7 @@ public:
     
     // Replaces pointer with nullptr
     void Reset() {
-        delete this;
+        Clear();
     }
     
     T* operator->() {  
@@ -93,17 +95,7 @@ public:
     }
     
     ~SharedPtr () {  
-        if(cnt!=nullptr){
-            cnt->strong--;
-            if(cnt->strong == 0){
-                delete ptr;
-            }
-            if(cnt->weak == 0){
-                delete cnt;
-            }
-            ptr=nullptr;
-            cnt=nullptr;
-        }
+        Clear();
     }
     
 private:
@@ -111,14 +103,27 @@ private:
     RefCntBlock* cnt;
     void Move(SharedPtr& p){
         Copy(p);
-        delete p;
+        p.Clear();
     }
     void Copy(const SharedPtr& p){
-        this->ptr=p->ptr;
-        this->counter=p->counter;
-        	if (this->counter != nullptr){
-    	    this->counter->strong++;	
+        this->ptr=p.ptr;
+        this->cnt=p.cnt;
+        	if (this->cnt != nullptr){
+    	    this->cnt->strong++;	
     	}
+    }
+    void Clear(){
+        if(cnt!=nullptr){
+            cnt->strong--;
+            if(cnt->strong == 0 && ptr!=nullptr){
+                delete ptr;
+            }
+            if(cnt->weak == 0 && cnt->strong == 0){
+                delete cnt;
+            }
+            ptr=nullptr;
+            cnt=nullptr;
+        }
     }
 };
 
@@ -134,7 +139,7 @@ public:
         Copy(o);
     }
     WeakPtr& operator=(const WeakPtr& o) {  
-        delete this;
+        Clear();
         Copy(o);
         return *this;
     }
@@ -144,7 +149,7 @@ public:
     }
     
     WeakPtr& operator=(WeakPtr&& o) {
-        delete this;
+        Clear();
         Move(o);
         return *this;
     }
@@ -154,14 +159,14 @@ public:
     }
     
     WeakPtr& operator=(const SharedPtr<T>& o) {
-        delete this;
+        Clear();
         Copy(o);
         return *this;
     }
     
     // Replaces pointer with nullptr
     void Reset() {
-        delete this;
+        Clear();
     }
     
     bool Expired() const {
@@ -170,46 +175,54 @@ public:
     
     SharedPtr<T> Lock() { 
         SharedPtr <T> p;
-        p->ptr=ptr;
-        p->cnt=cnt;
+        p.ptr=ptr;
+        p.cnt=cnt;
+        if(cnt != nullptr){
+            cnt->strong++;
+        }
         return p;
     }
         
     ~WeakPtr () {
-        if(cnt!=nullptr){
-            cnt->weak--;
-        if(cnt->strong == 0 && cnt->weak == 0){
-                delete cnt;
-        }
-        ptr=nullptr;
-        cnt=nullptr;
-        }
+        Clear();
     }
     
 private:
-        T* ptr;
+    T* ptr;
     RefCntBlock* cnt;
     void Move(WeakPtr& p){
         Copy(p);
-        delete p;
+        p.cnt=nullptr;
+        p.cnt=nullptr;
+        this->cnt->weak--;
     }
     void Copy(const WeakPtr& p){
-        this.ptr=p.ptr;
-        this.counter=p.counter;
-        	if (this.counter != nullptr){
-    	    this.counter->weak++;	
+        this->ptr=p.ptr;
+        this->cnt=p.cnt;
+        if (this->cnt != nullptr){
+    	    this->cnt->weak++;	
     	}
     }
     void Move(SharedPtr <T>& p){
         Copy(p);
-        delete p;
+        p.Clear();
     }
     void Copy(const SharedPtr <T>& p){
         this->ptr=p.ptr;
-        this->counter=p.counter;
-        	if (this.counter != nullptr){
-    	    this.counter->weak++;	
-    	}
+        this->cnt=p.cnt;
+        if (this->cnt != nullptr){
+    	    this->cnt->weak++;	
+        }
+    }
+    void Clear(){
+        if(cnt!=nullptr){
+            cnt->weak--;
+            if(cnt->strong == 0 && cnt->weak == 0){
+                delete cnt;
+            }
+            ptr=nullptr;
+            cnt=nullptr;
+        }   
     }
 };
 
