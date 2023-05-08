@@ -43,8 +43,26 @@ Vector (Vector& source){
     ReAlloc_(size_*2);
     for (i64 i=0;i<size_;i++ ){*(data_+i)=source[i];}
 }
+Vector (Vector&& tmp){
+    size_=0;
+    data_=nullptr;
+    reserved_=0;
+    std::swap(tmp.data_, data_); 
+    std::swap(tmp.size_, size_);   
+    std::swap(tmp.reserved_, reserved_);
+}
 Vector& operator=(Vector& source){
     Vector tmp=source;
+    std::swap(tmp.data_, data_); 
+    std::swap(tmp.size_, size_);   
+    std::swap(tmp.reserved_, reserved_); 
+    return *this;
+}
+Vector& operator=(Vector&& tmp){
+    size_=0;
+    delete [] data_;
+    data_=nullptr;
+    reserved_=0;
     std::swap(tmp.data_, data_); 
     std::swap(tmp.size_, size_);   
     std::swap(tmp.reserved_, reserved_); 

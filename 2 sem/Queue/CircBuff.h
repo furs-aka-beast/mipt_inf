@@ -32,6 +32,36 @@ Queue (i64 size){
     for (i64 i=0;i<size_;i++ ){*(data_+i)=0;}
 
 } 
+Queue (const Queue& q){
+    size_=q.size_;
+    begin_=q.begin_;
+    ReAlloc_(size_*2);
+    Copy(q);
+
+}
+Queue& operator=(const Queue& q){
+    delete [] data_;
+    data_=nullptr;
+    size_=q.size_;
+    begin_=q.begin_;
+    ReAlloc_(size_*2);
+    Copy(q);
+    return *this;
+}
+Queue (Queue&& q){
+    size_=q.size_;
+    begin_=q.begin_;
+    data_=q.data_;
+    q.data_=nullptr;
+}
+Queue& operator=(Queue&& q){
+    delete [] data_;
+    size_=q.size_;
+    begin_=q.begin_;
+    data_=q.data_;
+    q.data_=nullptr;
+    return *this;
+}
 i64 Size() const {
     return size_;
  }
@@ -44,7 +74,9 @@ i64& operator[](i64 num)
             return *(data_+(num+begin_-reserved_));
         }
 }
-
+~Queue(){
+    delete [] data_;
+}
 private:
 void ReAlloc_(i64 new_size){
     i64 * new_data = new i64[new_size];
@@ -68,7 +100,12 @@ void BeginCheck(){
         begin_=begin_-reserved_;
     }
 }
-i64* data_;
+void Copy(Queue q){
+    for(i64 i=0; i<q.Size();i++){
+        *(data_+i)=q[i];
+    }
+}
+i64* data_=nullptr;
 i64 begin_, size_, reserved_;
 i64 default_size_=2;
 

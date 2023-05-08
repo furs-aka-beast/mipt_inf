@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <cstdint>
 
 using i64=int64_t;
@@ -29,7 +30,6 @@ class Queue
             (*new_item).next=nullptr;
             head=new_item;
             tail=new_item;
-            //std::cout<<head->data<<' ';
         }
     }
     void PopFront(){
@@ -57,12 +57,12 @@ class Queue
         }
         else return 0;
     }
-    Queue(){
+    Queue (){
         head=nullptr;
         tail=nullptr;
         
     }
-    Queue(i64 size){
+    Queue (i64 size){
         head=nullptr;
         tail=nullptr;
     while(size>0)
@@ -71,7 +71,50 @@ class Queue
         size--;
     }
     }
+    Queue (const Queue& q){
+        head=nullptr;
+        tail=nullptr;
+        Copy(q);
+    }
+    Queue (Queue&& q){
+        Clear();
+        head=nullptr;
+        tail=nullptr;
+        std::swap(head, q.head);
+        std::swap(tail, q.tail);
+    }
+    Queue& operator=(Queue&& q){
+        
+        head=q.head;
+        tail=q.tail;
+        q.head=nullptr;
+        q.tail=nullptr;
+        return *this;
+    }
+    Queue& operator=(const Queue& q){
+        Clear();
+        head=nullptr;
+        tail=nullptr;
+        Copy(q);
+    }
     private:
+    void Clear(){
+        auto i=head;
+        if(i!=nullptr){
+            while(i->next!=nullptr){
+                i=i->next;
+                delete i->prev;
+            }
+            delete i;
+        }
+    }
+    void Copy(const Queue& q){
+        auto i=q.head;
+        while(i!=nullptr){
+            PushBack(i->data);
+            i=i->next;
+        }
+    }
     ListItem *head, *tail;
 };
 
