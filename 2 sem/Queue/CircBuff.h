@@ -9,7 +9,7 @@ void PushBack (i64 el){
     {
         ReAlloc_(2*size_);
     }
-    *(data_+size_+begin_)=el;
+    *(data_+(size_+begin_)%reserved_)=el;
     size_++;
 }
 void PopBack () { 
