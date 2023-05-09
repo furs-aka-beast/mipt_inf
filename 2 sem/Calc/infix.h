@@ -3,4 +3,4 @@
 
 using Int = int64_t;
 
-Int InfixNotationExpr(std::istream& istrm);
+Int InfixNotation(std::istream& istrm);
