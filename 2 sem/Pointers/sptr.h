@@ -48,7 +48,6 @@ class SharedPtr {
     friend class WeakPtr<T>;
 public:
     SharedPtr() {  
-        std::cout<<"created";
         ptr = nullptr;
         cnt = nullptr;
     }
