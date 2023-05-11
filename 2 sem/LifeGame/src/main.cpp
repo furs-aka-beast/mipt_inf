@@ -11,6 +11,6 @@ int main() {
 
     while (true) {
         mgr.Step();
-        std::this_thread::sleep_for(150ms);
+        std::this_thread::sleep_for(300ms);
     }
 }

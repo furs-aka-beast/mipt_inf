@@ -22,10 +22,10 @@ BehaviourApplicationResult BehaviourMitosis::Apply() {
     for (i16 i = 0; i < 4; i++){
         target_crd = crd;
         switch(direction[i]){
-            case 'l': target_crd.x--; break;
-            case 'r': target_crd.x++; break;
-            case 'u': target_crd.y--; break;
-            case 'd': target_crd.y++; break;
+            case 'l': target_crd.x-=2; break;
+            case 'r': target_crd.x+=2; break;
+            case 'u': target_crd.y-=2; break;
+            case 'd': target_crd.y+=2; break;
             default: ASSERT(false); break;
         }
         Cell* target = animal->GetCell()->GetField()->GetCellByCoord(target_crd);

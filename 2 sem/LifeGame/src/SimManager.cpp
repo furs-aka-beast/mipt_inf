@@ -17,10 +17,7 @@ SimManager::SimManager() {
     Spawn<Herbivorous>({7, 2});
     Spawn<Herbivorous>({5, 19});
     Spawn<Herbivorous>({2, 15});
-    
-    
-    Spawn<Predator>({10, 9});
-    Spawn<Predator>({2, 2});
+
     Spawn<Predator>({4, 12});
     Spawn<Predator>({1, 2});
     Spawn<Predator>({4, 3});

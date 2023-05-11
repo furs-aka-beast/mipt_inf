@@ -25,7 +25,6 @@ BehaviourApplicationResult BehaviourPredatorEat::Apply() {
             animal->GetCell()->SetEntity(nullptr);
             animal->SetCell(target);
             target->SetEntity(animal);
-        
             animal->satiety = satiety_max;
             
             return BehaviourApplicationResult::R_FINISH;
