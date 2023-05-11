@@ -13,4 +13,8 @@ public:
 	Field& operator=(const Field& rfk) = delete;
 	Field(Field&& rfk) = delete;
 	Field& operator=(Field&& rfk) noexcept = delete;
+	Cell* GetCellByCoord(Coords crd);
+protected:
+    i16 height;
+    i16 width;
 };

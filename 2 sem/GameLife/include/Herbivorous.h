@@ -1,9 +1,13 @@
 #pragma once
 #include"Animal.h"
-#include"Strategy.h"
+#include"Behaviour.h"
+
+class Cell;
 
 class Herbivorous : public Animal {
-	void Tick();
-	Strategy* GetStrategies();
-	Animal* Clone() override;
+public:
+	Herbivorous(SimManager* mgr, Cell* cell, i16 satiety);
+	Herbivorous(SimManager* mgr, Cell* cell);
+	void Clone(Coords) override;
+	void Render() override;
 };

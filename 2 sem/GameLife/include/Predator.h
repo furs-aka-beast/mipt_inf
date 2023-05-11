@@ -1,9 +1,9 @@
 #pragma once
 #include"Animal.h"
-#include"Strategy.h"
+#include"Behaviour.h"
 
 class Predator : public Animal {
 	void Tick();
-	Strategy* GetStrategies();
+	Behaviour* GetStrategies();
 	Animal* Clone() override;
 };
