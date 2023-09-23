@@ -1,3 +1,6 @@
+*
+!*.*
+!*/
 .DS_Store
 .vscode/c_cpp_properties.json
 .vscode/launch.json
@@ -8,3 +11,4 @@
 3_sem/.vscode/tasks.json
 *.out
 *.o
+
