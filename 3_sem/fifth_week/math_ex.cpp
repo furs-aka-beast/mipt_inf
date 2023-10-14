@@ -11,10 +11,5 @@ class math_ex: public std::exception{
     }
 };
 int main(){
-    try{
-        throw math_ex("LoL");
-    }
-    catch(math_ex ex){
-        std::cout<<ex.what();
-    }
+    throw math_ex("LoL");
 }
