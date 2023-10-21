@@ -9,6 +9,7 @@ class math_ex: public std::exception{
     const char* what() const noexcept override{
         return m_msg.c_str();
     }
+    virtual ~math_ex();
 };
 int main(){
     throw math_ex("LoL");
