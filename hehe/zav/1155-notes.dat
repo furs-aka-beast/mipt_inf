@@ -1,0 +1,15 @@
+## This data file: /home/MIPT2025fall/kdlav/Desktop/lab11/251203kdlav/1155-notes.dat
+## Programs:   /home/MIPT2025fall/INFO/Labview subVI/InitDatafile-2409.vi /home/MIPT2025fall/kdlav/Desktop/lab11/251203kdlav/maket_lav.vi 
+## Date: 03.12.2025 (Wed), 11:55:54.598
+## StartTime[t0=6818000 msec]
+## Time from 8am: 3354.599 s
+##PSG 9080; p/n 2090800934;  Hardware ver.120; Firmvare ver.120; FPGA ver.120KEITHLEY INSTRUMENTS INC.,MODEL 2000,1080318,A19  /A02  
+R0=119350.000
+#0000557     
+#0000057     0, гелмий в газтермометре, в дюаре тоже 1атм гелия
+#0000184     160, начал заливку азота
+#0000541     до этого забыл включить измерение сопротивления, надо с предыдущих измерений взять
+#0000574     точнее не измерение, а напряжение по умолчанию
+#0009981     Залил гелий
+#0013324     снимаю вахи на промежуточных
+

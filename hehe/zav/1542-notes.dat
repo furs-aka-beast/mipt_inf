@@ -1,0 +1,9 @@
+## This data file: /home/MIPT2025fall/kdlav/Desktop/lab11/251203kdlav/1542-notes.dat
+## Programs:   /home/MIPT2025fall/INFO/Labview subVI/InitDatafile-2409.vi /home/MIPT2025fall/kdlav/Desktop/lab11/251203kdlav/maket_lav.vi 
+## Date: 03.12.2025 (Wed), 15:42:12.068
+## StartTime[t0=20395001 msec]
+## Time from 8am: 16932.068 s
+##PSG 9080; p/n 2090800934;  Hardware ver.120; Firmvare ver.120; FPGA ver.120KEITHLEY INSTRUMENTS INC.,MODEL 2000,1080318,A19  /A02  
+R0=119350.000
+#0013573     
+#0000679     Закрыл откачку гелия
